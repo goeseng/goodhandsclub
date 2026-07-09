@@ -127,21 +127,27 @@
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     will-change:opacity;
   }
-  .hero-videos .hv-a{ animation:fadeA 16s ease-in-out infinite; }
-  .hero-videos .hv-b{ animation:fadeB 16s ease-in-out infinite; }
+  .hero-videos .hv-a{ animation:fadeA 22s ease-in-out infinite; }
+  .hero-videos .hv-b{ animation:fadeB 22s ease-in-out infinite; }
+  .hero-videos .hv-c{ animation:fadeC 22s ease-in-out infinite; }
   @keyframes fadeA{
-    0%, 43%  { opacity:1; }
-    50%, 93% { opacity:0; }
-    100%     { opacity:1; }
+    0%, 28%    { opacity:1; }
+    33%, 95%   { opacity:0; }
+    100%       { opacity:1; }
   }
   @keyframes fadeB{
-    0%, 43%  { opacity:0; }
-    50%, 93% { opacity:1; }
-    100%     { opacity:0; }
+    0%, 28%    { opacity:0; }
+    33%, 61%   { opacity:1; }
+    66%, 100%  { opacity:0; }
+  }
+  @keyframes fadeC{
+    0%, 61%    { opacity:0; }
+    66%, 95%   { opacity:1; }
+    100%       { opacity:0; }
   }
   @media (prefers-reduced-motion: reduce){
     .hero-videos video{ animation:none; }
-    .hero-videos .hv-b{ opacity:0; }
+    .hero-videos .hv-b, .hero-videos .hv-c{ opacity:0; }
   }
 
   /* Hero secondary tagline */
@@ -204,7 +210,17 @@
   .reveal.in{ opacity:1; transform:translateY(0); }
 
   /* ---------- PROBLEM ---------- */
-  .problem{ background:var(--bg); }
+  .problem{
+    position:relative;
+    background-color:var(--bg);
+    background-image:
+      linear-gradient(180deg, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.94) 60%, rgba(10,10,10,0.98) 100%),
+      url('https://images.unsplash.com/photo-1745832220621-371976550d42?fm=jpg&q=80&w=2400&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center 35%;
+    background-attachment:fixed;
+  }
+  @media(max-width:900px){ .problem{ background-attachment:scroll; } }
   .card-grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
   @media(max-width:820px){ .card-grid3{ grid-template-columns:1fr; } }
   .p-card{
@@ -261,9 +277,11 @@
     opacity:0; transition:opacity 1.8s ease;
   }
   .s1 .slide-layer.active{ opacity:1; }
-  .s1 .slide-layer.l1{ background-image:url('https://images.unsplash.com/photo-1590779033100-9f60a05a013d?fm=jpg&q=80&w=2400&auto=format&fit=crop'); background-position:center 48%; }
+  .s1 .slide-layer.l1{ background-image:url('https://images.unsplash.com/photo-1690983322029-eee73c0afa14?fm=jpg&q=80&w=2400&auto=format&fit=crop'); background-position:center 50%; }
   .s1 .slide-layer.l2{ background-image:url('https://images.unsplash.com/photo-1626081063434-79a2169791b1?fm=jpg&q=80&w=2400&auto=format&fit=crop'); background-position:center 55%; }
   .s1 .slide-layer.l3{ background-image:url('https://images.unsplash.com/photo-1679797878543-66c1e502d413?fm=jpg&q=80&w=2400&auto=format&fit=crop'); background-position:center 65%; }
+  .s1 .slide-layer.l4{ background-image:url('https://images.unsplash.com/photo-1606501126768-b78d4569d3f9?fm=jpg&q=80&w=2400&auto=format&fit=crop'); background-position:center 50%; }
+  .s1 .slide-layer.l5{ background-image:url('https://images.unsplash.com/photo-1502217625004-89c03571bcca?fm=jpg&q=80&w=2400&auto=format&fit=crop'); background-position:center 50%; }
   .s1::before{ z-index:1; background:linear-gradient(100deg, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.60) 46%, rgba(0,0,0,0.25) 78%); }
   .s1-dots{ position:absolute; z-index:3; left:32px; bottom:32px; display:flex; gap:8px; }
   @media(max-width:640px){ .s1-dots{ left:20px; } }
@@ -271,10 +289,10 @@
   .s1-dots span.active{ background:var(--lime); }
 
   .s2{
-    background-image:url('https://images.unsplash.com/photo-1589109807644-924edf14ee09?fm=jpg&q=80&w=2400&auto=format&fit=crop');
-    background-position:center 50%;
+    background-image:url('https://images.unsplash.com/photo-1758565811438-23e44c7c65fa?fm=jpg&q=80&w=2400&auto=format&fit=crop');
+    background-position:center 45%;
   }
-  .s2::before{ background:linear-gradient(260deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.48) 46%, rgba(0,0,0,0.18) 78%); }
+  .s2::before{ background:linear-gradient(260deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.52) 46%, rgba(0,0,0,0.22) 78%); }
 
   .s3{
     background-image:url('https://images.unsplash.com/photo-1754146073321-fd3f4aa9ca1a?fm=jpg&q=80&w=2400&auto=format&fit=crop');
@@ -420,8 +438,12 @@
       <source src="https://videos.pexels.com/video-files/5973234/5973234-hd_1920_1080_25fps.mp4" type="video/mp4">
     </video>
     <video class="hv hv-b" autoplay muted loop playsinline preload="auto"
-           poster="https://images.pexels.com/videos/854631/free-video-854631.jpg?auto=compress&amp;cs=tinysrgb&amp;w=1920&amp;h=1080">
-      <source src="https://videos.pexels.com/video-files/854631/854631-hd_1920_1080_30fps.mp4" type="video/mp4">
+           poster="https://images.pexels.com/videos/4061782/pexels-photo-4061782.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920&amp;h=1080">
+      <source src="https://videos.pexels.com/video-files/4061782/4061782-hd_1920_1080_24fps.mp4" type="video/mp4">
+    </video>
+    <video class="hv hv-c" autoplay muted loop playsinline preload="auto"
+           poster="https://images.pexels.com/videos/3842769/pexels-photo-3842769.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920&amp;h=1080">
+      <source src="https://videos.pexels.com/video-files/3842769/3842769-uhd_1440_2732_25fps.mp4" type="video/mp4">
     </video>
   </div>
   <div class="wrap">
@@ -521,6 +543,8 @@
   <div class="slide-layer l1 active"></div>
   <div class="slide-layer l2"></div>
   <div class="slide-layer l3"></div>
+  <div class="slide-layer l4"></div>
+  <div class="slide-layer l5"></div>
   <div class="wrap">
     <div class="step-text reveal">
       <div class="step-num">STEP 1</div>
@@ -530,7 +554,7 @@
       <p class="step-desc">The invitation is a &ldquo;useful task,&rdquo; not a support group. Everyday skills that let a man walk in without pretence. Completing one small task restores the quiet certainty of &ldquo;I can still do this.&rdquo;</p>
     </div>
   </div>
-  <div class="s1-dots"><span class="active"></span><span></span><span></span></div>
+  <div class="s1-dots"><span class="active"></span><span></span><span></span><span></span><span></span></div>
 </div>
 
 <!-- STEP 2 -->
