@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <g fill="none">
+    <circle cx="80" cy="80" r="76" stroke="#1B2A4A" stroke-width="2.5"/>
+    <path id="pt" d="M 80 22 A 58 58 0 0 1 80 138" fill="none"/>
+    <path id="pb" d="M 80 138 A 58 58 0 0 1 80 22" fill="none"/>
+  </g>
+  <text font-family="'Libre Caslon Text', Georgia, serif" font-size="13" letter-spacing="4" fill="#1B2A4A"><textPath href="#pt" startOffset="9%">MEN'S TABLE</textPath></text>
+  <text font-family="'Libre Caslon Text', Georgia, serif" font-size="10" letter-spacing="3" fill="#B8975A"><textPath href="#pb" startOffset="24%">GOOD HANDS</textPath></text>
+  <rect x="57" y="88" width="46" height="4.5" rx="1" fill="#B8975A"/>
+  <line x1="64" y1="92" x2="61" y2="105" stroke="#B8975A" stroke-width="2.5"/>
+  <line x1="96" y1="92" x2="99" y2="105" stroke="#B8975A" stroke-width="2.5"/>
+  <text x="80" y="74" text-anchor="middle" font-family="'Libre Caslon Text', Georgia, serif" font-size="34" fill="#1B2A4A">MT</text>
+</svg>
