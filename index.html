@@ -78,12 +78,28 @@ a{color:inherit}
 .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px}
 .nav-toggle span{display:block;width:22px;height:1.5px;background:var(--navy);margin:5px 0;transition:.3s}
 
-/* ---------- HERO ---------- */
+/* ---------- HERO SLIDER ---------- */
+:root{
+  --forest:#3F5F3B;
+  --forest-deep:#2F4A2C;
+  --mustard:#D4A94A;
+  --mustard-soft:#E6C377;
+}
 .hero{
   position:relative;min-height:100vh;
-  display:flex;align-items:center;
-  padding:120px 0 80px;overflow:hidden;
+  padding:0;overflow:hidden;
+  display:block;
 }
+.hero-slider{position:relative;height:100vh;min-height:620px;overflow:hidden}
+.slide{
+  position:absolute;inset:0;
+  opacity:0;pointer-events:none;
+  transition:opacity 1.2s ease;
+  display:flex;align-items:center;
+}
+.slide.active{opacity:1;pointer-events:auto}
+/* Slide 2 (Men's Table) retains the original hero video background and layout */
+.slide-mt{padding:120px 0 80px}
 .hero-media{position:absolute;inset:0;z-index:0}
 .hero-media video{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
@@ -98,12 +114,12 @@ a{color:inherit}
 .hero .crest{width:72px;height:72px;margin-bottom:26px}
 .hero h1{font-size:clamp(2.6rem,5vw,4.2rem);letter-spacing:-.01em;margin:0 0 8px;white-space:nowrap}
 .hero h1 .kr{
-  display:block;font-family:var(--serif);font-weight:400;
+  display:block;font-family:var(--kserif);font-weight:700;
   font-size:clamp(1.5rem,2.6vw,2.1rem);color:var(--navy);
   margin-top:14px;line-height:1.35;letter-spacing:-.01em;white-space:normal;
 }
 .hero-tag{
-  font-family:var(--serif);font-size:clamp(1.05rem,1.6vw,1.25rem);
+  font-family:var(--kserif);font-size:clamp(1.05rem,1.6vw,1.25rem);
   color:var(--ink);margin:22px 0 8px;line-height:1.7;max-width:32ch;
 }
 .hero-sub{font-size:15px;color:var(--muted);max-width:44ch;margin-bottom:34px;line-height:1.85}
@@ -124,13 +140,162 @@ a{color:inherit}
 }
 .hero-cta:hover{background:var(--navy-deep);transform:translateY(-2px)}
 .hero-cta svg{width:16px;height:16px}
-.scroll-hint{
-  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;
-  font-family:var(--util);font-size:11px;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:8px;
+
+/* Slide 1 (Public Hearing) layout */
+.slide-hearing{
+  background:var(--cream);
+  padding:110px 0 80px;
 }
+.slide-hearing::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse at 92% 18%, rgba(63,95,59,.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 92%, rgba(212,169,74,.08) 0%, transparent 55%);
+  pointer-events:none;
+}
+.hearing-wrap{
+  position:relative;z-index:2;
+  max-width:1180px;margin:0 auto;padding:0 28px;width:100%;
+  display:grid;grid-template-columns:1.25fr .9fr;gap:60px;align-items:center;
+}
+.hearing-left .eyebrow{color:var(--forest);display:block;margin-bottom:18px}
+.hearing-left h2{
+  font-family:var(--kserif);font-weight:700;
+  font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.18;letter-spacing:-.015em;
+  color:var(--navy);margin-bottom:12px;
+}
+.hearing-left h2 .accent{color:var(--forest);display:block}
+.hearing-tag{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(1.1rem,2vw,1.35rem);color:var(--forest);
+  margin-bottom:28px;letter-spacing:.01em;
+}
+.hearing-intro{
+  background:rgba(255,255,255,.6);border-left:3px solid var(--forest);
+  padding:16px 22px;margin-bottom:34px;max-width:52ch;
+}
+.hearing-intro .term{
+  font-family:var(--util);font-size:12px;letter-spacing:.1em;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:4px;
+}
+.hearing-intro p{font-size:14.5px;line-height:1.8;color:var(--ink);margin:0}
+.hearing-meta{
+  display:grid;grid-template-columns:repeat(3,auto);gap:28px 44px;
+  margin-bottom:30px;padding:22px 0;
+  border-top:1px solid rgba(63,95,59,.22);border-bottom:1px solid rgba(63,95,59,.22);
+}
+.meta-cell{min-width:120px}
+.meta-cell .label{
+  font-family:var(--util);font-size:11px;letter-spacing:.22em;
+  color:var(--forest);font-weight:600;text-transform:uppercase;
+  display:block;margin-bottom:6px;
+}
+.meta-cell .value{
+  display:block;
+  font-family:var(--kserif);font-weight:700;font-size:17px;
+  color:var(--navy);line-height:1.35;
+}
+.meta-cell .sub{display:block;font-size:12.5px;color:var(--muted);margin-top:4px;font-family:var(--sans)}
+.hearing-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--forest);color:var(--cream);text-decoration:none;
+  font-family:var(--util);font-size:15px;font-weight:600;letter-spacing:.02em;
+  padding:15px 30px;border-radius:2px;transition:transform .2s,background .2s;
+}
+.hearing-cta:hover{background:var(--forest-deep);transform:translateY(-2px)}
+.hearing-cta svg{width:16px;height:16px}
+.hearing-link-note{
+  display:block;margin-top:12px;
+  font-family:var(--util);font-size:12px;color:var(--muted);letter-spacing:.03em;
+}
+.hearing-link-note a{color:var(--forest);text-decoration:none;border-bottom:1px dotted var(--forest)}
+
+/* Right column: program + kettle illustration */
+.hearing-right{position:relative}
+.kettle-art{
+  position:relative;max-width:240px;margin:0 auto 24px;
+}
+.kettle-art svg{width:100%;height:auto;display:block}
+.kettle-art .kettle-caption{
+  position:absolute;top:-18px;left:-28px;
+  font-family:var(--serif);font-style:italic;font-size:1.35rem;color:var(--forest);
+  transform:rotate(-6deg);
+}
+.kettle-art .kettle-caption::after{
+  content:"";position:absolute;right:-26px;bottom:-6px;
+  width:34px;height:18px;
+  border:1.5px solid var(--forest);border-top:none;border-left:none;
+  border-radius:0 0 60% 60%/0 0 100% 100%;transform:rotate(-30deg);
+}
+.program-card{
+  background:rgba(255,255,255,.75);border:1px solid rgba(63,95,59,.18);
+  padding:26px 28px;border-radius:3px;
+}
+.program-card .program-title{
+  font-family:var(--util);font-size:12px;letter-spacing:.2em;
+  color:var(--forest);font-weight:700;text-transform:uppercase;margin-bottom:14px;
+}
+.program-list{list-style:none;padding:0;margin:0;counter-reset:prog}
+.program-list li{
+  counter-increment:prog;position:relative;padding:11px 0 11px 36px;
+  font-size:14.5px;color:var(--ink);line-height:1.5;
+  border-bottom:1px solid rgba(63,95,59,.1);
+}
+.program-list li:last-child{border-bottom:none}
+.program-list li::before{
+  content:"0" counter(prog);position:absolute;left:0;top:12px;
+  font-family:var(--serif);font-size:14px;color:var(--forest);font-weight:400;
+  letter-spacing:.08em;
+}
+
+/* Slider controls */
+.slider-controls{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  z-index:50;display:flex;align-items:center;gap:22px;
+}
+.slider-arrow{
+  background:rgba(255,255,255,.85);border:1px solid var(--line);
+  width:42px;height:42px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .2s;color:var(--navy);
+}
+.slider-arrow:hover{background:#fff;transform:translateY(-1px)}
+.slider-arrow svg{width:16px;height:16px}
+.slider-dots{display:flex;gap:10px;align-items:center}
+.slider-dot{
+  background:none;border:none;cursor:pointer;padding:6px;
+  display:flex;align-items:center;justify-content:center;
+}
+.slider-dot .d{
+  display:block;width:36px;height:2px;background:rgba(27,42,74,.22);transition:background .3s,height .3s;
+}
+.slider-dot.active .d{background:var(--navy);height:3px}
+.slider-dot:hover .d{background:var(--navy)}
+
+/* Scroll hint (only on slide 2) */
+.scroll-hint{
+  position:absolute;bottom:30px;left:30px;z-index:2;
+  font-family:var(--util);font-size:11px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--muted);display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+  opacity:0;transition:opacity .4s;pointer-events:none;
+}
+.slide-mt.active .scroll-hint{opacity:1}
 .scroll-hint .bar{width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:drop 2s ease-in-out infinite}
 @keyframes drop{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+@media(max-width:880px){
+  .slide{align-items:flex-start}
+  .slide-hearing{padding-top:96px}
+  .hero-slider{min-height:980px}
+  .hearing-wrap{grid-template-columns:1fr;gap:28px}
+  .hearing-right{max-width:420px;margin:0 auto}
+  .kettle-art{max-width:150px;margin:0 auto 14px}
+  .kettle-art .kettle-caption{left:-18px;font-size:1.1rem}
+  .hearing-meta{grid-template-columns:1fr 1fr;gap:16px 24px}
+  .hearing-left h2{font-size:2rem}
+  .slider-controls{bottom:16px;gap:14px}
+  .slide-hearing{padding:96px 0 84px}
+}
 
 /* ---------- SECTION SCAFFOLD ---------- */
 section{position:relative}
@@ -341,26 +506,115 @@ section{position:relative}
   <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
+<!-- HERO (2-slide slider) -->
 <header class="hero" id="top">
-  <div class="hero-media" id="heroMedia">
-    <video class="active" autoplay muted loop playsinline src="https://videos.pexels.com/video-files/5973234/5973234-hd_1920_1080_25fps.mp4"></video>
-    <video autoplay muted loop playsinline src="https://videos.pexels.com/video-files/7963468/7963468-uhd_2560_1440_25fps.mp4"></video>
-    <video autoplay muted loop playsinline src="https://videos.pexels.com/video-files/3842769/3842769-uhd_1440_2732_25fps.mp4"></video>
+  <div class="hero-slider" id="heroSlider">
+
+    <!-- SLIDE 1: Public Hearing -->
+    <section class="slide slide-hearing active" data-slide="0" aria-label="Public hearing announcement">
+      <div class="hearing-wrap">
+        <div class="hearing-left">
+          <span class="eyebrow">Public Hearing · 2026 · Korea Men's Shed Network</span>
+          <h2>Introducing Men's Shed<span class="accent">to Korea — A Public Hearing</span></h2>
+          <p class="hearing-tag">Kettle is on! &nbsp;&middot;&nbsp; A new community that starts over a cup of tea.</p>
+          <div class="hearing-intro">
+            <span class="term">What is a Men's Shed?</span>
+            <p>Begun in Australia and now in 3,000+ sheds across 12 countries, a Men's Shed is a community space where retired men come together on real projects — building friendships, improving health and wellbeing, and giving back locally.</p>
+          </div>
+          <div class="hearing-meta">
+            <div class="meta-cell">
+              <span class="label">Date</span>
+              <span class="value">Tue, Nov 17</span>
+              <span class="sub">15:00 – 17:00</span>
+            </div>
+            <div class="meta-cell">
+              <span class="label">Venue</span>
+              <span class="value">MARU360 · B1 Dojeon</span>
+              <span class="sub">172 Yeoksam-ro, Gangnam-gu, Seoul</span>
+            </div>
+            <div class="meta-cell">
+              <span class="label">Who</span>
+              <span class="value">Retirees, mid-life men<br>Programme stakeholders</span>
+              <span class="sub">Researchers · policy · press</span>
+            </div>
+          </div>
+          <a href="https://forms.gle/MthTs3Up8KBxCja2A" target="_blank" rel="noopener" class="hearing-cta">
+            Register to attend
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <span class="hearing-link-note">Registration · <a href="https://forms.gle/MthTs3Up8KBxCja2A" target="_blank" rel="noopener">forms.gle/MthTs3Up8KBxCja2A</a></span>
+        </div>
+        <div class="hearing-right">
+          <div class="kettle-art" aria-hidden="true">
+            <span class="kettle-caption">Kettle is on!</span>
+            <svg viewBox="0 0 240 220">
+              <path d="M140 20 Q 134 32 140 44 Q 146 56 140 68" fill="none" stroke="#3F5F3B" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+              <path d="M160 10 Q 154 24 160 38 Q 166 52 160 66" fill="none" stroke="#3F5F3B" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+              <path d="M180 20 Q 174 32 180 44 Q 186 56 180 68" fill="none" stroke="#3F5F3B" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+              <path d="M20 150 L 24 196 Q 24 206 34 206 L 68 206 Q 78 206 78 196 L 82 150 Z" fill="#3F5F3B"/>
+              <ellipse cx="51" cy="150" rx="31" ry="7" fill="#2F4A2C"/>
+              <path d="M82 162 Q 100 162 100 178 Q 100 194 82 194" fill="none" stroke="#3F5F3B" stroke-width="5"/>
+              <path d="M118 100 L 112 190 Q 112 206 128 206 L 210 206 Q 226 206 226 190 L 220 100 Z" fill="#D4A94A"/>
+              <ellipse cx="169" cy="100" rx="53" ry="12" fill="#D4A94A"/>
+              <ellipse cx="169" cy="97" rx="46" ry="8" fill="#C19740"/>
+              <rect x="150" y="78" width="38" height="12" rx="3" fill="#D4A94A"/>
+              <circle cx="169" cy="74" r="6" fill="#D4A94A"/>
+              <path d="M138 90 Q 128 50 169 50 Q 210 50 200 90" fill="none" stroke="#2F2F2F" stroke-width="5" stroke-linecap="round"/>
+              <path d="M118 118 Q 90 115 85 130 Q 83 138 93 142 L 118 142 Z" fill="#D4A94A"/>
+              <g stroke="#2F2F2F" stroke-width="2" stroke-dasharray="6 5" fill="none" opacity=".55">
+                <path d="M130 140 L 215 140"/>
+              </g>
+            </svg>
+          </div>
+          <div class="program-card">
+            <div class="program-title">Programme</div>
+            <ul class="program-list">
+              <li>Introducing the Korea Men's Shed Network</li>
+              <li>Men's Sheds abroad: case studies</li>
+              <li>Pilot activities in Korea</li>
+              <li>Stakeholder advisory · Q&amp;A</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Men's Table (existing hero) -->
+    <section class="slide slide-mt" data-slide="1" aria-label="Men's Table introduction">
+      <div class="hero-media" id="heroMedia">
+        <video class="active" autoplay muted loop playsinline src="https://videos.pexels.com/video-files/5973234/5973234-hd_1920_1080_25fps.mp4"></video>
+        <video autoplay muted loop playsinline src="https://videos.pexels.com/video-files/7963468/7963468-uhd_2560_1440_25fps.mp4"></video>
+        <video autoplay muted loop playsinline src="https://videos.pexels.com/video-files/3842769/3842769-uhd_1440_2732_25fps.mp4"></video>
+      </div>
+      <div class="hero-inner">
+        <svg class="crest" viewBox="0 0 160 160" style="color:var(--navy)"><use href="#crest"/></svg>
+        <h1>Men's Table
+          <span class="kr">Learn. Share. Reconnect.</span>
+        </h1>
+        <p class="hero-tag">Sit down together, and begin again.<br>Where one man's experience becomes everyone's asset.</p>
+        <p class="hero-sub">A community for men in their sixties who'd rather build what's next than look back. We learn new skills with our hands, and put them to good use — together.</p>
+        <div class="hero-pillars"><span>Skills</span><span>Mates</span><span>Purpose</span></div>
+        <a href="#apply" class="hero-cta">Apply for the workshop
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="scroll-hint"><span>SCROLL</span><span class="bar"></span></div>
+    </section>
+
+    <!-- Controls -->
+    <div class="slider-controls" aria-label="Slide controls">
+      <button class="slider-arrow prev" id="slidePrev" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="slider-dots">
+        <button class="slider-dot active" data-go="0" aria-label="Slide 1: Public hearing"><span class="d"></span></button>
+        <button class="slider-dot" data-go="1" aria-label="Slide 2: Men's Table"><span class="d"></span></button>
+      </div>
+      <button class="slider-arrow next" id="slideNext" aria-label="Next slide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
   </div>
-  <div class="hero-inner">
-    <svg class="crest" viewBox="0 0 160 160" style="color:var(--navy)"><use href="#crest"/></svg>
-    <h1>Men's Table
-      <span class="kr">Learn, share, reconnect.</span>
-    </h1>
-    <p class="hero-tag">Sit down together, and begin again.<br>Where one man's experience becomes everyone's asset.</p>
-    <p class="hero-sub">A community for men in their sixties who'd rather build what's next than look back. We learn new skills with our hands, and put them to good use — together.</p>
-    <div class="hero-pillars"><span>Skills</span><span>Mates</span><span>Purpose</span></div>
-    <a href="#apply" class="hero-cta">Apply for the workshop
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
-  </div>
-  <div class="scroll-hint"><span>SCROLL</span><span class="bar"></span></div>
 </header>
 
 <!-- INTRO -->
@@ -626,14 +880,72 @@ document.getElementById('navToggle').addEventListener('click',()=>{
   document.querySelector('.nav-links').style.cssText='display:flex;position:absolute;top:60px;right:20px;flex-direction:column;background:var(--cream);padding:20px 24px;border:1px solid var(--line);border-radius:4px;gap:16px;box-shadow:0 12px 40px rgba(20,32,58,.14)';
 });
 
-// hero video crossfade
-const vids=[...document.querySelectorAll('#heroMedia video')];
-let vi=0;
-setInterval(()=>{
-  vids[vi].classList.remove('active');
-  vi=(vi+1)%vids.length;
-  vids[vi].classList.add('active');
-},7000);
+// hero slider + video crossfade (video runs only on the Men's Table slide)
+(function(){
+  const slides=[...document.querySelectorAll('#heroSlider .slide')];
+  const dots=[...document.querySelectorAll('.slider-dot')];
+  const vids=[...document.querySelectorAll('#heroMedia video')];
+  const total=slides.length;
+  let si=0;         // current slide
+  let vi=0;         // current video (within slide 2)
+  let autoTimer=null;
+  let videoTimer=null;
+  const AUTO_MS=10000;      // 10s between slides
+  const VIDEO_MS=7000;      // 7s between videos (original cadence)
+
+  function goTo(n){
+    si=((n%total)+total)%total;
+    slides.forEach((s,i)=>s.classList.toggle('active',i===si));
+    dots.forEach((d,i)=>d.classList.toggle('active',i===si));
+    manageVideos();
+  }
+  function next(){ goTo(si+1); }
+  function prev(){ goTo(si-1); }
+
+  function manageVideos(){
+    const mtSlide=slides.find(s=>s.classList.contains('slide-mt'));
+    const mtActive=mtSlide && mtSlide.classList.contains('active');
+    if(mtActive){
+      if(!videoTimer){
+        videoTimer=setInterval(()=>{
+          vids[vi].classList.remove('active');
+          vi=(vi+1)%vids.length;
+          vids[vi].classList.add('active');
+        },VIDEO_MS);
+      }
+    } else {
+      if(videoTimer){clearInterval(videoTimer);videoTimer=null}
+    }
+  }
+
+  function startAuto(){
+    stopAuto();
+    autoTimer=setInterval(next,AUTO_MS);
+  }
+  function stopAuto(){
+    if(autoTimer){clearInterval(autoTimer);autoTimer=null}
+  }
+
+  // controls
+  document.getElementById('slideNext').addEventListener('click',()=>{next();startAuto()});
+  document.getElementById('slidePrev').addEventListener('click',()=>{prev();startAuto()});
+  dots.forEach(d=>d.addEventListener('click',()=>{goTo(+d.dataset.go);startAuto()}));
+
+  // pause on hover
+  const slider=document.getElementById('heroSlider');
+  slider.addEventListener('mouseenter',stopAuto);
+  slider.addEventListener('mouseleave',startAuto);
+
+  // keyboard
+  document.addEventListener('keydown',(e)=>{
+    if(e.target.matches('input,textarea,select'))return;
+    if(e.key==='ArrowLeft'){prev();startAuto()}
+    if(e.key==='ArrowRight'){next();startAuto()}
+  });
+
+  manageVideos();
+  startAuto();
+})();
 
 // scroll reveal
 const io=new IntersectionObserver((es)=>{
