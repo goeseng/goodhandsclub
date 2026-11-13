@@ -593,6 +593,24 @@ section{position:relative}
 
 <script src="assets/config.js"></script>
 <script>
+
+  // Instagram feed via LightWidget (set LIGHTWIDGET_ID in assets/config.js to enable)
+  (function loadInstagramFeed() {
+    const id = window.LIGHTWIDGET_ID;
+    if (!id) return;                                // placeholder stays visible
+    const iframe = document.getElementById('igFeed');
+    const ph = document.getElementById('igPlaceholder');
+    iframe.src = 'https://cdn.lightwidget.com/widgets/' + id + '.html';
+    iframe.style.display = 'block';
+    iframe.style.height = '560px';                  // LightWidget auto-resizes with its script, but a sane default
+    ph.style.display = 'none';
+    // Optional auto-resize helper that LightWidget provides
+    const s = document.createElement('script');
+    s.src = 'https://cdn.lightwidget.com/widgets/lightwidget.js';
+    s.async = true;
+    document.body.appendChild(s);
+  })();
+
   // Fetch Naver blog RSS via rss2json (free public proxy — no CORS issues)
   (async function loadNaverPosts() {
     const blogId = window.NAVER_BLOG_ID;
@@ -646,6 +664,25 @@ section{position:relative}
   .post .pt{font-family:var(--kserif);font-weight:700;font-size:17px;color:var(--navy);line-height:1.4;margin:0}
   .post .ex{font-size:13.5px;color:var(--muted);line-height:1.75;margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   .post .read{font-family:var(--util);font-size:11px;color:var(--gold);letter-spacing:.08em;font-weight:700;margin-top:auto}
+
+.ig-card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:28px 32px;margin-top:28px;display:flex;align-items:center;gap:22px}
+.ig-avatar{flex:0 0 64px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f58529,#dd2a7b 50%,#8134af);display:flex;align-items:center;justify-content:center;color:#fff}
+.ig-avatar svg{width:34px;height:34px}
+.ig-body{flex:1;min-width:0}
+.ig-handle{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+.ig-sub{font-size:13px;color:var(--muted);margin:4px 0 14px;font-family:var(--util);letter-spacing:.02em}
+.ig-cta{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:var(--cream);padding:10px 20px;border-radius:2px;text-decoration:none;font-family:var(--util);font-size:13px;font-weight:600;letter-spacing:.04em;transition:background .2s}
+.ig-cta:hover{background:var(--navy-deep)}
+.ig-feed-wrap{margin-top:32px;background:#fff;border:1px solid var(--line);border-radius:3px;min-height:280px;position:relative}
+.ig-placeholder{padding:48px 32px;text-align:center;color:var(--muted);line-height:1.85}
+.ig-placeholder p{margin:10px 0}
+.ig-placeholder .sm{font-size:13px;max-width:52ch;margin-left:auto;margin-right:auto}
+.ig-placeholder code{font-family:var(--util);background:var(--cream);padding:2px 8px;border-radius:2px;font-size:12px;color:var(--navy)}
+@media(max-width:600px){
+  .ig-card{flex-direction:column;align-items:flex-start;text-align:left;padding:24px}
+  .ig-avatar{flex:0 0 56px;width:56px;height:56px}
+  .ig-avatar svg{width:30px;height:30px}
+}
 </style>
 </head>
 <body>
@@ -686,11 +723,61 @@ section{position:relative}
   <div class="wrap">
     <span class="crumb">04 · 게시판과 뉴스</span>
     <h1>셰드에서 일어나는<br><span class="accent">이야기들.</span></h1>
-    <p class="lead">각 멘즈셰드의 활동 소식, 공청회·행사 안내, 뉴스와 공지사항을 모아 봅니다. 네이버 블로그를 통해 관리합니다.</p>
+    <p class="lead">각 멘즈셰드의 활동 소식, 공청회·행사 안내, 뉴스와 공지사항을 한곳에 모았습니다. 일상의 짧은 기록은 <strong>인스타그램</strong>에, 자료와 긴 글은 <strong>네이버 블로그</strong>에 올립니다.</p>
   </div>
 </header>
 
-<section class="sec">
+<section class="sec" id="instagram">
+  <div class="wrap">
+    <span class="sec-tag">인스타그램</span>
+    <h2 class="sec-title">오늘의 셰드, <span class="accent">@k_goodhandsclub</span></h2>
+    <p>셰더들의 일상, 작업, 함께한 한 끼. 가장 빠른 소식은 인스타그램에 올라옵니다.</p>
+
+    <!-- Instagram profile card -->
+    <div class="ig-card">
+      <div class="ig-avatar" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <div class="ig-body">
+        <div class="ig-handle">@k_goodhandsclub</div>
+        <div class="ig-sub">Korea Men's Shed Network · Men's Table 도봉</div>
+        <a href="https://www.instagram.com/k_goodhandsclub" target="_blank" rel="noopener" class="ig-cta">
+          인스타그램에서 팔로우하기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Instagram feed grid (LightWidget iframe — see README for setup) -->
+    <div class="ig-feed-wrap" id="igFeedWrap">
+      <iframe
+        id="igFeed"
+        src="about:blank"
+        scrolling="no"
+        allowtransparency="true"
+        style="display:none;width:100%;border:0;overflow:hidden"
+        loading="lazy"
+        title="인스타그램 피드"
+      ></iframe>
+      <div class="ig-placeholder" id="igPlaceholder">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.2" style="opacity:.3">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        <p><strong>인스타그램 피드 자리입니다.</strong></p>
+        <p class="sm">LightWidget(무료) 가입 후 위젯 ID를 <code>assets/config.js</code>의 <code>LIGHTWIDGET_ID</code> 값에 넣으면 이 자리에 포스트가 자동으로 뜹니다. 설정 방법은 README.md 참고.</p>
+        <a href="https://www.instagram.com/k_goodhandsclub" target="_blank" rel="noopener" class="ig-cta" style="margin-top:8px">인스타그램 바로 보기 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
   <div class="wrap">
     <span class="sec-tag">공식 블로그</span>
     <h2 class="sec-title">모든 소식은 <span class="accent">네이버 블로그</span>로 발행됩니다.</h2>
@@ -714,7 +801,7 @@ section{position:relative}
   </div>
 </section>
 
-<section class="sec alt">
+<section class="sec">
   <div class="wrap">
     <h2 class="sec-title">각 셰드의 자체 채널</h2>
     <p>개별 셰드가 운영하는 인스타그램·카카오채널 등 자체 소셜 채널도 함께 소개합니다. 셰드 목록에서 각 셰드의 운영 채널을 확인하실 수 있습니다.</p>

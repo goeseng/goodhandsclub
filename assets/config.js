@@ -22,3 +22,10 @@ window.LIBRARY_SAMPLE_DATA = [
 // Naver blocks direct iframe embedding, so we fetch the blog's RSS feed via
 // rss2json.com (free public CORS proxy for RSS) and render posts in our design.
 window.NAVER_BLOG_ID = 'goeseng';
+
+
+// -------- Instagram feed via LightWidget (news.html) --------
+// Sign up at https://lightwidget.com (free plan), create a widget for
+// Instagram account "k_goodhandsclub", then paste the widget ID below.
+// Leave as empty string to keep the placeholder card showing.
+window.LIGHTWIDGET_ID = '';

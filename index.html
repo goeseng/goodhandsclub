@@ -249,6 +249,23 @@ a{color:inherit}
 }
 
 /* Slider controls */
+
+/* Photo-background hero slides (real activity photos) */
+.slide-photo{padding:0;position:relative}
+.slide-photo .photo-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
+.slide-photo .photo-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(27,42,74,.78) 0%,rgba(27,42,74,.55) 45%,rgba(27,42,74,.25) 100%)}
+.slide-photo .hero-inner{color:var(--cream);box-sizing:content-box;width:640px;max-width:calc(100% - 56px);margin-left:max(28px,calc((100vw - 1180px)/2));margin-right:auto;padding:120px 0 80px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.slide-photo .photo-eyebrow{font-family:var(--util);font-size:12px;letter-spacing:.24em;color:var(--gold-soft);font-weight:700;text-transform:uppercase;margin-bottom:22px}
+.slide-photo h1{font-family:var(--kserif);font-weight:700;font-size:clamp(2.4rem,4.4vw,3.8rem);line-height:1.2;color:var(--cream);white-space:normal;letter-spacing:-.01em;margin-bottom:18px}
+.slide-photo h1 em{color:var(--gold-soft);font-style:italic;font-weight:500;font-family:var(--serif)}
+.slide-photo .photo-sub{font-size:16px;line-height:1.9;color:rgba(245,240,230,.88);max-width:46ch;margin-bottom:34px}
+.slide-photo .hero-cta{background:var(--gold);color:var(--navy-deep)}
+.slide-photo .hero-cta:hover{background:var(--cream);color:var(--navy-deep)}
+@media(max-width:820px){
+  .slide-photo .photo-bg::after{background:linear-gradient(180deg,rgba(27,42,74,.35) 0%,rgba(27,42,74,.85) 100%)}
+  .slide-photo .hero-inner{padding:100px 0 60px}
+}
+
 .slider-controls{
   position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
   z-index:50;display:flex;align-items:center;gap:22px;
@@ -629,6 +646,59 @@ section{position:relative}
       <div class="scroll-hint"><span>SCROLL</span><span class="bar"></span></div>
     </section>
 
+
+    <!-- SLIDE 3: Cooking activity -->
+    <section class="slide slide-photo" data-slide="2" aria-label="함께 요리하기">
+      <div class="photo-bg" style="background-image:url('assets/hero-photos/cooking.jpg')"></div>
+      <div class="hero-inner">
+        <span class="photo-eyebrow">MEN'S TABLE · 도봉</span>
+        <h1>함께 배우고<br><em>함께 만들어 보는 한 끼.</em></h1>
+        <p class="photo-sub">매주 모여 한 끼를 함께 만듭니다. 어깨를 나란히 하고 썰고 볶는 사이, 자연스럽게 이야기가 흐릅니다. 그 자리에 당신의 자리도 있습니다.</p>
+        <a href="#apply" class="hero-cta">첫 모임 참여 신청하기
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Woodwork finish -->
+    <section class="slide slide-photo" data-slide="3" aria-label="손으로 만드는 쓸모">
+      <div class="photo-bg" style="background-image:url('assets/hero-photos/woodwork.jpg')"></div>
+      <div class="hero-inner">
+        <span class="photo-eyebrow">WORKSHOP · 목공</span>
+        <h1>손으로 다시 만드는<br><em>쓸모.</em></h1>
+        <p class="photo-sub">못 하나를 박고, 사포질을 하고, 완성된 작품을 들어 올리는 순간. 60년의 손이 다시 역할을 찾습니다. 경력도 실력도 묻지 않습니다.</p>
+        <a href="#apply" class="hero-cta">배우고 나누는 경험 신청하기
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Group portrait -->
+    <section class="slide slide-photo" data-slide="4" aria-label="어깨를 나란히">
+      <div class="photo-bg" style="background-image:url('assets/hero-photos/together.jpg')"></div>
+      <div class="hero-inner">
+        <span class="photo-eyebrow">TOGETHER · 한 테이블</span>
+        <h1>스스로 만들어 가는<br><em>나의, 우리의 공간.</em></h1>
+        <p class="photo-sub">가볍게 들러도, 매주 와도 괜찮습니다. 반가운 얼굴이 있고, 할 일이 있고, 돌아가는 길이 덜 외롭습니다. 함께하는 셰더들이 기다립니다.</p>
+        <a href="#apply" class="hero-cta">손 · 벗 · 쓸모, 어깨를 나란히
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Forest walk -->
+    <section class="slide slide-photo" data-slide="5" aria-label="같이 걷는 하루">
+      <div class="photo-bg" style="background-image:url('assets/hero-photos/forest.jpg')"></div>
+      <div class="hero-inner">
+        <span class="photo-eyebrow">OUTDOORS · 숲</span>
+        <h1>같이 걷고,<br><em>같이 쉽니다.</em></h1>
+        <p class="photo-sub">실내 작업만이 아닙니다. 계절마다 가까운 숲으로 나가 함께 걷고, 바람을 나눕니다. 오늘 다시 설레는 내일을 만드는 하루입니다.</p>
+        <a href="#apply" class="hero-cta">멘즈셰드 함께하기
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
     <!-- Controls -->
     <div class="slider-controls" aria-label="슬라이드 전환">
       <button class="slider-arrow prev" id="slidePrev" aria-label="이전 슬라이드">
@@ -637,6 +707,10 @@ section{position:relative}
       <div class="slider-dots">
         <button class="slider-dot active" data-go="0" aria-label="슬라이드 1: 공청회"><span class="d"></span></button>
         <button class="slider-dot" data-go="1" aria-label="슬라이드 2: Men's Table"><span class="d"></span></button>
+        <button class="slider-dot" data-go="2" aria-label="슬라이드 3: 함께 요리하기"><span class="d"></span></button>
+        <button class="slider-dot" data-go="3" aria-label="슬라이드 4: 목공"><span class="d"></span></button>
+        <button class="slider-dot" data-go="4" aria-label="슬라이드 5: 한 테이블"><span class="d"></span></button>
+        <button class="slider-dot" data-go="5" aria-label="슬라이드 6: 숲 산책"><span class="d"></span></button>
       </div>
       <button class="slider-arrow next" id="slideNext" aria-label="다음 슬라이드">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
@@ -923,7 +997,7 @@ document.getElementById('navToggle').addEventListener('click',()=>{
   let vi=0;         // current video (within slide 2)
   let autoTimer=null;
   let videoTimer=null;
-  const AUTO_MS=10000;      // 10s between slides
+  const AUTO_MS=13000;      // 10s between slides
   const VIDEO_MS=7000;      // 7s between videos (original cadence)
 
   function goTo(n){
